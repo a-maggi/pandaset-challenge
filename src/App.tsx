@@ -5,6 +5,7 @@ import { fetchFrameData } from "./utils/fetcher";
 import { useEffect, useState } from "react";
 import { SceneData } from "./types";
 import ControlPanel from "./components/control-panel";
+import LoadingSpinner from "./components/loading-spinner";
 
 function App() {
   const [allFramesData, setAllFramesData] = useState<SceneData[]>([]);
@@ -43,7 +44,10 @@ function App() {
     setFrameIndex(newFrame);
   };
 
-  if (isLoading || !allFramesData.length) return null;
+  if (isLoading || !allFramesData.length) {
+    return <LoadingSpinner />;
+  }
+
   return (
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: [10, 10, 10] }}>
