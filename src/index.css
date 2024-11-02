@@ -94,3 +94,38 @@
   font-weight: 500;
   font-family: monospace;
 }
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #4a9eff;
+  cursor: pointer;
+  margin-top: -6px; /* Center thumb on track */
+}
+
+input[type="range"]::-moz-range-thumb {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  background: #4a9eff;
+  cursor: pointer;
+  border: none;
+}
+
+input[type="range"]::-webkit-slider-runnable-track {
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+}
+
+input[type="range"]::-moz-range-track {
+  height: 4px;
+  background: #444;
+  border-radius: 2px;
+}
+
+input[type="range"]:focus {
+  outline: none;
+}

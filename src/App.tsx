@@ -39,16 +39,8 @@ function App() {
     return () => clearInterval(intervalId);
   }, [allFramesData, isPlaying]);
 
-  const handlePrevFrame = () => {
-    setFrameIndex((prev) => (prev - 1 + 50) % 50);
-  };
-
-  const handleNextFrame = () => {
-    setFrameIndex((prev) => (prev + 1) % 50);
-  };
-
-  const togglePlayback = () => {
-    setIsPlaying(!isPlaying);
+  const handleFrameChange = (newFrame: number) => {
+    setFrameIndex(newFrame);
   };
 
   if (isLoading || !allFramesData.length) return null;
@@ -66,9 +58,8 @@ function App() {
         totalFrames={50}
         pointCount={allFramesData[frameIndex].points.length}
         isPlaying={isPlaying}
-        onPrevFrame={handlePrevFrame}
-        onNextFrame={handleNextFrame}
-        onTogglePlayback={togglePlayback}
+        onFrameChange={handleFrameChange}
+        onTogglePlayback={() => setIsPlaying(!isPlaying)}
       />
     </div>
   );
