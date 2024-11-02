@@ -2,19 +2,16 @@ import { useState } from "react";
 import { Html } from "@react-three/drei";
 import { BoxGeometry, Vector3 } from "three";
 import { Cuboid } from "../types";
-import { calculateTooltipPosition } from "../utils/tooltip";
-import { useThree } from "@react-three/fiber";
 
 function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
   const [hoveredCuboid, setHoveredCuboid] = useState<Cuboid | null>(null);
-  const { camera } = useThree();
 
   return cuboids.map((cuboid) => {
     // This is where we calculate the tooltip position for each cuboid
-    const tooltipPosition = calculateTooltipPosition(
-      new Vector3(cuboid["position.x"], cuboid["position.z"], -cuboid["position.y"]),
-      cuboid["dimensions.z"],
-      camera
+    const tooltipPosition = new Vector3(
+      0, // Center relative to group
+      cuboid["dimensions.z"] / 2 + 0.5, // Half height + offset
+      0
     );
 
     return (
@@ -62,20 +59,18 @@ function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
 
         {/* Tooltip */}
         <Html
-          position={tooltipPosition.position}
+          position={tooltipPosition}
           center
           style={{
             transition: "all 0.2s",
             opacity: hoveredCuboid === cuboid ? 1 : 0,
-            transform: `scale(${hoveredCuboid === cuboid ? 1 : 0.5})`,
+            transform: `scale(${hoveredCuboid === cuboid ? 1 : 0.5}) translate(-50%, -100%)`,
             pointerEvents: "none",
             userSelect: "none"
           }}
         >
           <div
-            className={`tooltip-container ${tooltipPosition.atBottom ? "tooltip-bottom" : "tooltip-top"} ${
-              hoveredCuboid === cuboid ? "tooltip-visible" : "tooltip-hidden"
-            }`}
+            className={`tooltip-container tooltip-top ${hoveredCuboid === cuboid ? "tooltip-visible" : "tooltip-hidden"}`}
           >
             <div className="tooltip-title">{cuboid.label}</div>
             <div className="tooltip-row">
