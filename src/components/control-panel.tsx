@@ -56,6 +56,7 @@ function ControlPanel({
               color: "white",
               cursor: "pointer"
             }}
+            aria-label="Previous Frame"
           >
             ←
           </button>
@@ -70,6 +71,7 @@ function ControlPanel({
               cursor: "pointer",
               width: "60px"
             }}
+            aria-label={isPlaying ? "Pause" : "Play"}
           >
             {isPlaying ? "⏸" : "▶"}
           </button>
@@ -83,6 +85,7 @@ function ControlPanel({
               color: "white",
               cursor: "pointer"
             }}
+            aria-label="Next Frame"
           >
             →
           </button>
