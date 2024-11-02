@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import { Points as ThreePoints, PointMaterial } from "@react-three/drei";
 import { getHeightColor } from "../utils/colors";
 import { Point3D } from "../types";
+import { CanvasTexture } from "three";
 
 function Points({ points }: { points: Point3D[] }) {
   const positions = useMemo(() => {
@@ -29,9 +30,34 @@ function Points({ points }: { points: Point3D[] }) {
     );
   }, [points]);
 
+  const pointTexture = useMemo(() => {
+    const canvas = document.createElement("canvas");
+    canvas.width = 64;
+    canvas.height = 64;
+    const context = canvas.getContext("2d")!;
+
+    // Draw circle
+    context.beginPath();
+    context.arc(32, 32, 30, 0, 2 * Math.PI);
+    context.fillStyle = "white";
+    context.fill();
+
+    const texture = new CanvasTexture(canvas);
+    texture.needsUpdate = true;
+    return texture;
+  }, []);
+
   return (
     <ThreePoints positions={positions} colors={colors} limit={10000} range={10000}>
-      <PointMaterial vertexColors size={0.1} transparent toneMapped={false} />
+      <PointMaterial
+        vertexColors
+        size={0.1}
+        transparent={false}
+        depthTest={true}
+        alphaTest={0.1}
+        toneMapped={false}
+        map={pointTexture}
+      />
     </ThreePoints>
   );
 }
