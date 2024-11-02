@@ -16,6 +16,7 @@ function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
       cuboid["dimensions.z"],
       camera
     );
+
     return (
       <group
         key={cuboid.uuid}
@@ -28,11 +29,12 @@ function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
       >
         {/* Main cuboid mesh */}
         <mesh
-          onPointerOver={(e) => {
-            e.stopPropagation();
+          onPointerOver={() => {
             setHoveredCuboid(cuboid);
           }}
-          onPointerOut={() => setHoveredCuboid(null)}
+          onPointerOut={() => {
+            setHoveredCuboid(null);
+          }}
         >
           <boxGeometry
             args={[
@@ -42,16 +44,16 @@ function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
             ]}
           />
           <meshStandardMaterial
-            color={hoveredCuboid === cuboid ? "#88ccff" : "#66aaff"}
+            color={hoveredCuboid === cuboid ? "#b3e0ff" : "#3399ff"} // Lighter blue on hover
             transparent
-            opacity={0.3}
-            depthWrite={false}
-            depthTest={true}
+            opacity={hoveredCuboid === cuboid ? 0.5 : 0.3} // More opacity on hover
+            emissive={hoveredCuboid === cuboid ? "#b3e0ff" : "#3399ff"}
+            toneMapped={false}
           />
         </mesh>
 
         {/* Wireframe edges */}
-        <lineSegments raycast={() => null}>
+        <lineSegments>
           <edgesGeometry
             args={[new BoxGeometry(cuboid["dimensions.x"], cuboid["dimensions.z"], cuboid["dimensions.y"])]}
           />
@@ -65,7 +67,9 @@ function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
           style={{
             transition: "all 0.2s",
             opacity: hoveredCuboid === cuboid ? 1 : 0,
-            transform: `scale(${hoveredCuboid === cuboid ? 1 : 0.5})`
+            transform: `scale(${hoveredCuboid === cuboid ? 1 : 0.5})`,
+            pointerEvents: "none",
+            userSelect: "none"
           }}
         >
           <div

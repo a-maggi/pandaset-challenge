@@ -13,6 +13,12 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* reset */
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .tooltip-container {
   background: rgba(0, 0, 0, 0.85);
   border-radius: 8px;
