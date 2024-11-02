@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import Points from "./points";
+import Cuboids from "./cuboids";
 import { fetchFrameData } from "../utils/fetcher";
 import { SceneData } from "../types";
 import { Grid } from "@react-three/drei";
@@ -28,6 +29,7 @@ function Scene() {
         position={[0, 0, 0]}
       />
       <Points points={sceneData.points} />
+      <Cuboids cuboids={sceneData.cuboids} />
     </>
   );
 }
