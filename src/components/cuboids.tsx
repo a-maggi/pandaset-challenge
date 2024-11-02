@@ -32,6 +32,10 @@ function Cuboids({ cuboids }: { cuboids: Cuboid[] }) {
           onPointerOut={() => {
             setHoveredCuboid(null);
           }}
+          onClick={() => {
+            // Toggle the hover state on click/touch
+            setHoveredCuboid(hoveredCuboid === cuboid ? null : cuboid);
+          }}
         >
           <boxGeometry
             args={[
