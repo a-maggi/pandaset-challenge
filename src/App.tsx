@@ -1,5 +1,5 @@
 import { Canvas } from "@react-three/fiber";
-import { OrbitControls } from "@react-three/drei";
+import { OrbitControls, Grid } from "@react-three/drei";
 import Scene from "./components/scene";
 
 function App() {
@@ -7,9 +7,9 @@ function App() {
     <div style={{ width: "100vw", height: "100vh" }}>
       <Canvas camera={{ position: [10, 10, 10] }}>
         <OrbitControls />
+        <axesHelper args={[5]} />
+        <Grid args={[200, 200]} cellColor="#6f6f6f" sectionSize={5} sectionThickness={1} sectionColor="#6f6f6f" />
         <Scene />
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
       </Canvas>
     </div>
   );
