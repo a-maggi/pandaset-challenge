@@ -1,5 +1,3 @@
-import { Html } from "@react-three/drei";
-
 interface ControlPanelProps {
   frameIndex: number;
   totalFrames: number;
@@ -20,12 +18,13 @@ function ControlPanel({
   onTogglePlayback
 }: ControlPanelProps) {
   return (
-    <Html
+    <div
       style={{
-        userSelect: "none"
+        position: "absolute",
+        top: "20px",
+        right: "20px",
+        zIndex: 1000
       }}
-      transform={false}
-      fullscreen
     >
       <div
         style={{
@@ -98,7 +97,7 @@ function ControlPanel({
           Points: {pointCount}
         </div>
       </div>
-    </Html>
+    </div>
   );
 }
 
